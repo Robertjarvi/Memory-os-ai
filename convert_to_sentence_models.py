@@ -17,9 +17,9 @@ BASE_DIR = "/workspace/memory_os_ai/emb"
 # - Si "all-MiniLM-L6-v2" est déjà un SentenceTransformers officiel,
 #   vous pouvez l'omettre. Sinon, vous pouvez le re-convertir par uniformité.
 MODELS_TO_CONVERT = [
-     "clip-ViT-B-32"
+     "all-MiniLM-L6-v2",
 #    "all-MiniLM-L12-v2",
-#    "all-MiniLM-L6-v2",
+#    "clip-ViT-B-32",
 #    "bert_base_uncased",
 #    "roberta_base"
     # Ajoutez ou retirez selon vos besoins
