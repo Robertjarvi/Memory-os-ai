@@ -83,9 +83,14 @@ python memory_os_ai.py
 
 Note sur les modèles : Lors de la première exécution, le script téléchargera automatiquement les modèles nécessaires :
 
-SentenceTransformers (all-MiniLM-L6-v2) : Téléchargé dans emb/all-MiniLM-L6-v2/.
-Mistral-7B (mistral-7b-instruct-v0.2.Q4_K_M.gguf) : Téléchargé dans mistral-7b/.
-Whisper (base) : Téléchargé dans emb/whisper_base.pt. 
+SentenceTransformers (all-MiniLM-L6-v2) : 
+-Téléchargé dans emb/all-MiniLM-L6-v2/.
+Si le modèle ne fonctionne pas le convertire en sentence avec le script:  "convert_to_sentence_models.py"
+
+Mistral-7B (mistral-7b-instruct-v0.2.Q4_K_M.gguf) : 
+-Téléchargé dans mistral-7b/.
+
+Whisper (base) : Téléchargé dans emb/whisper_base.pt. (Choisissez le modèle 2 meilleurs compris, moins volumineux)
 
 Ces modèles seront stockés localement et utilisés pour toutes les exécutions suivantes.
 
