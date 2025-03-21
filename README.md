@@ -1,29 +1,6 @@
 # Memory OS AI
 
-
 Memory OS AI est un système d'IA avancé pour la gestion et l'analyse de documents localement. Il prend en charge divers formats (PDF, TXT, DOCX, images, audio, etc.) et utilise des technologies comme FAISS, SentenceTransformers, et Mistral-7B pour la recherche sémantique et la génération de rapports.
-
-
-memory-os-ai/
-│
-├── emb/                          # Dossier pour les modèles d'embeddings
-│   ├── all-MiniLM-L6-v2/         # Modèle SentenceTransformers (all-MiniLM-L6-v2)
-│   └── whisper_base.pt           # Modèle Whisper (base)
-│
-├── mistral-7b/                   # Dossier pour le modèle Mistral-7B
-│   └── mistral-7b-instruct-v0.2.Q4_K_M.gguf  # Fichier du modèle Mistral-7B
-│
-├── pdfs/                         # Dossier pour les fichiers à traiter (PDFs, images, audio, etc.)
-│
-├── embeddings_cache.pkl          # Cache des embeddings (généré automatiquement)
-│
-├── memory_os_ai.py               # Script principal
-├── memory_os_ai_gui.py           # Script de l'interface GUI
-├── requirements_gpu.txt          # Dépendances pour GPU
-├── requirements_cpu.txt          # Dépendances pour CPU
-├── README.md                     # Instructions
-└── LICENSE                       # Licence LGPL v3
-
 
 ## Fonctionnalités
 - Traitement de documents multi-formats (PDF, TXT, DOCX, images, audio, etc.).
