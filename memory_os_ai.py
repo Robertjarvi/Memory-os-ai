@@ -1,6 +1,6 @@
 # Fichier : memory_os_ai.py
-# Description : Script principal pour memory_os_ai, un système d'IA avancé pour la gestion et l'analyse de documents localement.
-# Copyright (c) 2025 [Ton Nom]
+# Description : Script principal pour Memory OS AI, un système d'IA avancé pour la gestion et l'analyse de documents localement.
+# Copyright (c) 2025 Kocupyr Romain
 # Licence : LGPL v3 pour usage non commercial ; licence commerciale payante pour usage commercial.
 
 import numpy as np
@@ -24,6 +24,8 @@ import pytesseract  # Pour OCR
 from pptx import Presentation  # Pour .pptx
 import shutil  # Pour copier les fichiers
 import whisper  # Pour transcription audio avec Whisper v2
+from huggingface_hub import snapshot_download, hf_hub_download  # Pour télécharger les modèles
+import requests  # Pour télécharger Mistral-7B
 
 # Désactiver parallélisme tokenizers
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -35,13 +37,46 @@ torch.backends.cuda.matmul.allow_tf32 = True
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"[INFO] Utilisation du dispositif : {DEVICE}")
 
-# Chemins des modèles et données (à ajuster selon ton environnement)
-MODELE_SEMANTIQUE_PATH = "/workspace/memory_os_ai/emb/all-MiniLM-L6-v2_sentence_model"
-CHEMIN_MODELE = "/workspace/memory_os_ai/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
-WHISPER_MODEL_PATH = "/workspace/memory_os_ai/emb/whisper_base.pt"
-CACHE_EMBEDDINGS = "/workspace/memory_os_ai/embeddings_cache.pkl"
-DOSSIER_FICHIERS = "/workspace/memory_os_ai/pdfs"
+# Chemins relatifs au dossier du script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODELE_SEMANTIQUE_PATH = os.path.join(BASE_DIR, "emb", "all-MiniLM-L6-v2")
+CHEMIN_MODELE = os.path.join(BASE_DIR, "mistral-7b", "mistral-7b-instruct-v0.2.Q4_K_M.gguf")
+WHISPER_MODEL_PATH = os.path.join(BASE_DIR, "emb", "whisper_base.pt")
+CACHE_EMBEDDINGS = os.path.join(BASE_DIR, "embeddings_cache.pkl")
+DOSSIER_FICHIERS = os.path.join(BASE_DIR, "pdfs")
 EXTENSIONS_ACCEPTEES = {".pdf", ".txt", ".docx", ".doc", ".png", ".jpeg", ".ppt", ".pptx", ".mp3", ".wav", ".ogg", ".flac"}
+
+# Créer les dossiers si nécessaire
+os.makedirs(os.path.join(BASE_DIR, "emb"), exist_ok=True)
+os.makedirs(os.path.join(BASE_DIR, "mistral-7b"), exist_ok=True)
+os.makedirs(os.path.join(BASE_DIR, "pdfs"), exist_ok=True)
+
+# Télécharger les modèles si nécessaire
+def download_models():
+    """Télécharge les modèles nécessaires si les fichiers ou dossiers n'existent pas."""
+    # SentenceTransformers (all-MiniLM-L6-v2)
+    if not os.path.exists(MODELE_SEMANTIQUE_PATH):
+        print("[TÉLÉCHARGEMENT] Téléchargement du modèle SentenceTransformers (all-MiniLM-L6-v2)...")
+        snapshot_download(repo_id="sentence-transformers/all-MiniLM-L6-v2", local_dir=MODELE_SEMANTIQUE_PATH)
+
+    # Mistral-7B (mistral-7b-instruct-v0.2.Q4_K_M.gguf)
+    if not os.path.exists(CHEMIN_MODELE):
+        print("[TÉLÉCHARGEMENT] Téléchargement du modèle Mistral-7B (mistral-7b-instruct-v0.2.Q4_K_M.gguf)...")
+        url = "https://huggingface.co/TheBloke/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q4_K_M.gguf"
+        response = requests.get(url, stream=True)
+        with open(CHEMIN_MODELE, "wb") as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+
+    # Whisper (base)
+    if not os.path.exists(WHISPER_MODEL_PATH):
+        print("[TÉLÉCHARGEMENT] Téléchargement du modèle Whisper (base)...")
+        hf_hub_download(repo_id="openai/whisper-base", filename="model.pt", local_dir=os.path.join(BASE_DIR, "emb"))
+        os.rename(os.path.join(BASE_DIR, "emb", "model.pt"), WHISPER_MODEL_PATH)
+
+# Télécharger les modèles au démarrage
+download_models()
 
 # Initialisation des modèles
 print("[DÉBUT] Chargement de SentenceTransformer...")
