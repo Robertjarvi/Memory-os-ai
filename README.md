@@ -1,5 +1,7 @@
 # Memory OS AI
 
+https://github.com/user-attachments/assets/578445d5-d093-4432-84d3-50e6e5500c4a
+
 Memory OS AI est un système d'IA avancé pour la gestion et l'analyse de documents localement. Il prend en charge divers formats (PDF, TXT, DOCX, images, audio, etc.) et utilise des technologies comme FAISS, SentenceTransformers, et Mistral-7B pour la recherche sémantique et la génération de rapports. Ce logiciel est conçu pour fonctionner entièrement en local, garantissant la sécurité des données.
 
 ## Fonctionnalités
