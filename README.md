@@ -10,7 +10,7 @@ Memory OS AI est un système d'IA avancé pour la gestion et l'analyse de docume
 - Adaptation automatique CPU/GPU selon la machine de l'utilisateur.
 
 ## Structure du projet
-#
+```
 memory-os-ai/
 │
 ├── emb/                          # Dossier pour les modèles d'embeddings
@@ -30,88 +30,88 @@ memory-os-ai/
 ├── requirements_cpu.txt          # Dépendances pour CPU
 ├── README.md                     # Instructions
 └── LICENSE                       # Licence LGPL v3
-#
+```
 
 ## Installation
 
 ### Prérequis
 - Python 3.9 ou supérieur.
+
 - Outils supplémentaires :
+
   - Tesseract OCR (pour `pytesseract`) : 
-    ```bash
+    ```
     brew install tesseract  # Sur macOS
     sudo apt-get install tesseract-ocr  # Sur Ubuntu
 FFmpeg (pour whisper) :
 
-#
+```
 brew install ffmpeg  # Sur macOS
 sudo apt-get install ffmpeg  # Sur Ubuntu
-#
+```
 
 Antiword (pour textract, si nécessaire) :
-#
+```
 brew install antiword  # Sur macOS
 sudo apt-get install antiword  # Sur Ubuntu
-#
+```
 
 Étapes
 
 Clonez le dépôt :
-#
+```
 git clone https://github.com/[ton-utilisateur]/memory-os-ai.git
-#
+```
 
 cd memory-os-ai
 Installez les dépendances selon votre machine :
-Sur une machine avec GPU (ex. VPS avec RTX3090) :
-bash
-
-Réduire
-
-Envelopper
-
-Copier
+Sur une machine avec GPU (ex. sur serveur interne avec RTX3090) :
+```
 pip install -r requirements_gpu.txt
+```
 Assurez-vous que CUDA est installé (version 12.1 recommandée). Ajustez les URLs dans requirements_gpu.txt si vous utilisez une version différente de CUDA.
-Sur une machine sans GPU (ex. MacBook Pro) :
-bash
 
-#
+Sur une machine sans GPU (ex. MacBook Pro) :
+```
 pip install -r requirements_cpu.txt
-#
+```
 
 Lancez le script principal :
-#
+```
 python memory_os_ai.py
-#
+```
 
 Note sur les modèles : Lors de la première exécution, le script téléchargera automatiquement les modèles nécessaires :
+
 SentenceTransformers (all-MiniLM-L6-v2) : Téléchargé dans emb/all-MiniLM-L6-v2/.
 Mistral-7B (mistral-7b-instruct-v0.2.Q4_K_M.gguf) : Téléchargé dans mistral-7b/.
-Whisper (base) : Téléchargé dans emb/whisper_base.pt. Ces modèles seront stockés localement et utilisés pour toutes les exécutions suivantes.
+Whisper (base) : Téléchargé dans emb/whisper_base.pt. 
+
+Ces modèles seront stockés localement et utilisés pour toutes les exécutions suivantes.
+
+
 (Optionnel) Lancez l'interface GUI :
-bash
-
-Réduire
-
-Envelopper
-
-Copier
+```
 python memory_os_ai_gui.py
-Utilisation
+```
+Utilisation:
+
 Placez vos fichiers (PDFs, images, audio, etc.) dans le dossier pdfs/.
+
 Avec le script principal (memory_os_ai.py), suivez les instructions en ligne de commande :
 recherche <mot-clé> : Recherche un mot-clé dans les documents.
 rapport <sujet> : Génère un rapport structuré sur un sujet.
 exit : Quitte le programme.
+
 Avec l'interface GUI (memory_os_ai_gui.py), utilisez les boutons pour charger les fichiers, rechercher, ou générer des rapports.
 Licence
+
 Memory OS AI est sous licence GNU Lesser General Public License v3.0 (LGPL v3) pour une utilisation non commerciale. Cela signifie que vous pouvez utiliser, modifier, et redistribuer le logiciel gratuitement pour des usages non commerciaux, à condition de respecter les termes de la LGPL v3 (voir le fichier LICENSE pour plus de détails).
 
-Pour une utilisation commerciale (ex. intégration dans un produit commercial, utilisation en entreprise), vous devez acheter une licence commerciale. Les revenus générés par les licences commerciales contribuent directement au développement et à la maintenance du projet. Contactez-moi à [ton email] pour plus d'informations sur les tarifs et les conditions.
+Pour une utilisation commerciale (ex. intégration dans un produit commercial, utilisation en entreprise), vous devez acheter une licence commerciale. Les revenus générés par les licences commerciales contribuent directement au développement et à la maintenance du projet. Contactez-moi à romainsantoli@gmail.com pour plus d'informations sur les tarifs et les conditions.
 
 Support
-Besoin d'aide pour installer ou configurer Memory OS AI ? Je propose des services de support et de personnalisation payants. Contactez-moi à [ton email] pour plus d'informations.
+Besoin d'aide pour installer ou configurer Memory OS AI ? Je propose des services de support et de personnalisation payants. Contactez-moi à romainsantoli@gmail.com pour plus d'informations.
 
 Sponsor
 Soutenez le développement de Memory OS AI en faisant un don ! [Lien vers Patreon/Open Collective]
